@@ -92,7 +92,7 @@ const Sidebar = ({ isOpen, onClose }) => {
               Contact our support team for assistance.
             </p>
             <a
-              href="mailto:support@healthcare.com"
+              href="mailto:support@temporacare.com"
               className="text-sm text-primary-600 hover:text-primary-700 font-medium"
             >
               Get Support →

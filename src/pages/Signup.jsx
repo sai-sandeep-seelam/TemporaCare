@@ -96,10 +96,12 @@ const Signup = () => {
       <div className="relative z-10 w-full max-w-md">
         {/* Logo Section */}
         <div className="text-center mb-8">
-          <div className="h-16 w-16 bg-white rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-            <span className="text-3xl font-bold text-primary-600">H</span>
-          </div>
-          <h1 className="text-4xl font-bold text-white mb-2">HealthCare</h1>
+          <img
+            src="/temporacare.png"
+            alt="TemporaCare Logo"
+            className="h-16 w-16 rounded-xl mx-auto mb-4 shadow-lg object-cover"
+          />
+          <h1 className="text-4xl font-bold text-white mb-2">TemporaCare</h1>
           <p className="text-primary-100">Create your account to get started</p>
         </div>
 
@@ -268,7 +270,7 @@ const Signup = () => {
 
         {/* Footer */}
         <p className="text-center text-primary-100 text-sm mt-8">
-          © 2026 HealthCare. All rights reserved.
+          © 2026 TemporaCare. All rights reserved.
         </p>
       </div>
     </div>

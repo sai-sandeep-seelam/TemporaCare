@@ -1,10 +1,12 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
+import { useEffect } from 'react'
 
 // Layout Components
 import Layout from './components/layout/Layout'
 
 // Pages
+import Landing from './pages/Landing'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Dashboard from './pages/Dashboard'
@@ -48,18 +50,53 @@ function App() {
       />
 
       <Routes>
-        {/* Redirect root to login */}
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        {/* Landing page as root */}
+        <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
         {/* App Routes */}
         <Route element={<Layout />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/appointments" element={<Appointments />} />
-          <Route path="/medications" element={<Medications />} />
-          <Route path="/notifications" element={<Notifications />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/dashboard"
+            element={
+              <RequireAuth>
+                <Dashboard />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/appointments"
+            element={
+              <RequireAuth>
+                <Appointments />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/medications"
+            element={
+              <RequireAuth>
+                <Medications />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/notifications"
+            element={
+              <RequireAuth>
+                <Notifications />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <RequireAuth>
+                <Profile />
+              </RequireAuth>
+            }
+          />
         </Route>
 
         {/* 404 Not Found */}
@@ -67,6 +104,16 @@ function App() {
       </Routes>
     </Router>
   )
+}
+
+function RequireAuth({ children }) {
+  const user = JSON.parse(localStorage.getItem('currentUser') || 'null')
+
+  if (!user) {
+    return <Navigate to="/login" replace />
+  }
+
+  return children
 }
 
 export default App

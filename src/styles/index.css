@@ -144,4 +144,16 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  @keyframes gradient-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .animated-gradient {
+    background: linear-gradient(135deg, #0b1d40, #1a3a6f, #1f6feb, #1cb5e0);
+    background-size: 300% 300%;
+    animation: gradient-flow 16s ease infinite;
+  }
 }

@@ -108,7 +108,7 @@ const Appointments = () => {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex-1">
           <h1 className="text-3xl font-bold text-secondary-900">Appointments</h1>
-          <p className="mt-2 text-secondary-600">Manage your healthcare appointments</p>
+          <p className="mt-2 text-secondary-600">Manage your health appointments</p>
         </div>
         <Button variant="primary" onClick={() => setIsModalOpen(true)} className="flex items-center gap-2 whitespace-nowrap">
           <FiPlus className="h-5 w-5" />

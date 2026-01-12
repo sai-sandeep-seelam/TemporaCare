@@ -13,7 +13,7 @@ const Header = ({ onMenuClick }) => {
   const notificationRef = useRef(null)
 
   // Get current user from localStorage
-  const user = JSON.parse(localStorage.getItem('currentUser') || '{}')
+  const user = JSON.parse(localStorage.getItem('currentUser') || 'null')
   
   const unreadCount = 0
 
@@ -65,95 +65,114 @@ const Header = ({ onMenuClick }) => {
           </Link>
         </div>
 
-        {/* Right side - Notifications and user menu */}
+        {/* Right side */}
         <div className="flex items-center gap-4">
-          {/* Notifications */}
-          <div className="relative" ref={notificationRef}>
-            <button
-              onClick={() => setShowNotifications(!showNotifications)}
-              className="relative p-2 rounded-lg hover:bg-secondary-100 transition-colors"
-              aria-label="Notifications"
-            >
-              <FiBell className="h-6 w-6 text-secondary-600" />
-              {unreadCount > 0 && (
-                <span className="absolute top-1 right-1 h-4 w-4 bg-error rounded-full text-xs text-white flex items-center justify-center">
-                  {unreadCount > 9 ? '9+' : unreadCount}
-                </span>
-              )}
-            </button>
-
-            {showNotifications && (
-              <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-secondary-200 py-2">
-                <div className="px-4 py-2 border-b border-secondary-200">
-                  <h3 className="font-semibold text-secondary-900">Notifications</h3>
-                </div>
-                <div className="max-h-96 overflow-y-auto">
-                  {unreadCount > 0 ? (
-                    <div className="px-4 py-2">
-                      <p className="text-sm text-secondary-600">
-                        You have {unreadCount} unread notification{unreadCount > 1 ? 's' : ''}
-                      </p>
-                    </div>
-                  ) : (
-                    <div className="px-4 py-8 text-center">
-                      <p className="text-sm text-secondary-500">No new notifications</p>
-                    </div>
-                  )}
-                </div>
-                <div className="px-4 py-2 border-t border-secondary-200">
-                  <Link
-                    to="/notifications"
-                    className="text-sm text-primary-600 hover:text-primary-700 font-medium"
-                    onClick={() => setShowNotifications(false)}
-                  >
-                    View all notifications
-                  </Link>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* User menu */}
-          <div className="relative" ref={userMenuRef}>
-            <button
-              onClick={() => setShowUserMenu(!showUserMenu)}
-              className="flex items-center gap-2 p-2 rounded-lg hover:bg-secondary-100 transition-colors"
-              aria-label="User menu"
-            >
-              <div className="h-8 w-8 bg-primary-100 rounded-full flex items-center justify-center">
-                <FiUser className="h-5 w-5 text-primary-600" />
-              </div>
-              <span className="hidden sm:block text-sm font-medium text-secondary-900">
-                {user?.firstName} {user?.lastName}
-              </span>
-            </button>
-
-            {showUserMenu && (
-              <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-secondary-200 py-2">
-                <div className="px-4 py-2 border-b border-secondary-200">
-                  <p className="font-medium text-secondary-900">
-                    {user?.firstName} {user?.lastName}
-                  </p>
-                  <p className="text-sm text-secondary-500">{user?.email}</p>
-                </div>
-                <Link
-                  to="/profile"
-                  className="flex items-center gap-2 px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-50 transition-colors"
-                  onClick={() => setShowUserMenu(false)}
-                >
-                  <FiUser className="h-4 w-4" />
-                  My Profile
-                </Link>
+          {user ? (
+            <>
+              {/* Notifications */}
+              <div className="relative" ref={notificationRef}>
                 <button
-                  onClick={handleLogout}
-                  className="flex items-center gap-2 w-full px-4 py-2 text-sm text-error hover:bg-red-50 transition-colors"
+                  onClick={() => setShowNotifications(!showNotifications)}
+                  className="relative p-2 rounded-lg hover:bg-secondary-100 transition-colors"
+                  aria-label="Notifications"
                 >
-                  <FiLogOut className="h-4 w-4" />
-                  Logout
+                  <FiBell className="h-6 w-6 text-secondary-600" />
+                  {unreadCount > 0 && (
+                    <span className="absolute top-1 right-1 h-4 w-4 bg-error rounded-full text-xs text-white flex items-center justify-center">
+                      {unreadCount > 9 ? '9+' : unreadCount}
+                    </span>
+                  )}
                 </button>
+
+                {showNotifications && (
+                  <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-secondary-200 py-2">
+                    <div className="px-4 py-2 border-b border-secondary-200">
+                      <h3 className="font-semibold text-secondary-900">Notifications</h3>
+                    </div>
+                    <div className="max-h-96 overflow-y-auto">
+                      {unreadCount > 0 ? (
+                        <div className="px-4 py-2">
+                          <p className="text-sm text-secondary-600">
+                            You have {unreadCount} unread notification{unreadCount > 1 ? 's' : ''}
+                          </p>
+                        </div>
+                      ) : (
+                        <div className="px-4 py-8 text-center">
+                          <p className="text-sm text-secondary-500">No new notifications</p>
+                        </div>
+                      )}
+                    </div>
+                    <div className="px-4 py-2 border-t border-secondary-200">
+                      <Link
+                        to="/notifications"
+                        className="text-sm text-primary-600 hover:text-primary-700 font-medium"
+                        onClick={() => setShowNotifications(false)}
+                      >
+                        View all notifications
+                      </Link>
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
+
+              {/* User menu */}
+              <div className="relative" ref={userMenuRef}>
+                <button
+                  onClick={() => setShowUserMenu(!showUserMenu)}
+                  className="flex items-center gap-2 p-2 rounded-lg hover:bg-secondary-100 transition-colors"
+                  aria-label="User menu"
+                >
+                  <div className="h-8 w-8 bg-primary-100 rounded-full flex items-center justify-center">
+                    <FiUser className="h-5 w-5 text-primary-600" />
+                  </div>
+                  <span className="hidden sm:block text-sm font-medium text-secondary-900">
+                    {user?.firstName} {user?.lastName}
+                  </span>
+                </button>
+
+                {showUserMenu && (
+                  <div className="absolute right-0 mt-2 w-64 max-w-xs bg-white rounded-lg shadow-lg border border-secondary-200 py-2">
+                    <div className="px-4 py-2 border-b border-secondary-200 space-y-0.5">
+                      <p className="font-medium text-secondary-900">
+                        {user?.firstName} {user?.lastName}
+                      </p>
+                      <p className="text-sm text-secondary-500 break-all leading-snug">{user?.email}</p>
+                    </div>
+                    <Link
+                      to="/profile"
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-50 transition-colors"
+                      onClick={() => setShowUserMenu(false)}
+                    >
+                      <FiUser className="h-4 w-4" />
+                      My Profile
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="flex items-center gap-2 w-full px-4 py-2 text-sm text-error hover:bg-red-50 transition-colors"
+                    >
+                      <FiLogOut className="h-4 w-4" />
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            </>
+          ) : (
+            <div className="flex items-center gap-2">
+              <Link
+                to="/login"
+                className="px-4 py-2 text-sm font-medium text-primary-700 hover:bg-primary-50 rounded-lg transition-colors"
+              >
+                Log in
+              </Link>
+              <Link
+                to="/signup"
+                className="px-4 py-2 text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700 rounded-lg transition-colors"
+              >
+                Sign up
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </header>

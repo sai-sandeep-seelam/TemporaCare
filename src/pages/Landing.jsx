@@ -1,11 +1,18 @@
 import { Link } from 'react-router-dom'
 import { FiCalendar, FiPackage, FiBell, FiArrowRight, FiCheck, FiShield, FiZap, FiUsers, FiClock, FiHeart } from 'react-icons/fi'
+import { useState, useEffect } from 'react'
 
 /**
  * Landing Page
  * Modern, engaging homepage with improved UI/UX
  */
 const Landing = () => {
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null')
+    setUser(currentUser)
+  }, [])
   const features = [
     {
       icon: FiCalendar,
@@ -40,7 +47,7 @@ const Landing = () => {
     {
       icon: FiUsers,
       title: 'Family Friendly',
-      description: 'Manage healthcare for your entire family from a single account.',
+      description: 'Manage health for your entire family from a single account.',
       color: 'from-indigo-500 to-purple-500',
     },
   ]
@@ -59,21 +66,36 @@ const Landing = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link to="/" className="flex items-center gap-3 group">
-              <div className="h-10 w-10 bg-gradient-to-br from-primary-600 to-primary-700 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                <FiHeart className="text-white h-6 w-6" />
-              </div>
+              <img src="/temporacare.png" alt="TemporaCare Logo" className="h-11 w-11 object-contain" />
               <span className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent">
-                HealthCare
+                TemporaCare
               </span>
             </Link>
             <div className="flex items-center gap-4">
-              <Link
-                to="/dashboard"
-                className="px-6 py-2.5 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg font-medium hover:shadow-lg hover:scale-105 transition-all duration-200 flex items-center gap-2"
-              >
-                <span>View Dashboard</span>
-                <FiArrowRight className="h-4 w-4" />
-              </Link>
+              {user ? (
+                <Link
+                  to="/dashboard"
+                  className="px-6 py-2.5 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg font-medium hover:shadow-lg hover:scale-105 transition-all duration-200 flex items-center gap-2"
+                >
+                  <span>View Dashboard</span>
+                  <FiArrowRight className="h-4 w-4" />
+                </Link>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className="px-6 py-2.5 text-primary-600 font-medium hover:text-primary-700 transition-colors"
+                  >
+                    Log In
+                  </Link>
+                  <Link
+                    to="/signup"
+                    className="px-6 py-2.5 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg font-medium hover:shadow-lg hover:scale-105 transition-all duration-200"
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -88,14 +110,14 @@ const Landing = () => {
               <span>Your Health, Your Way</span>
             </div>
             <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold text-secondary-900 mb-6 leading-tight animate-fade-in">
-              Healthcare
+              Health Management
               <br />
               <span className="bg-gradient-to-r from-primary-600 via-primary-500 to-cyan-500 bg-clip-text text-transparent">
                 Reimagined
               </span>
             </h1>
             <p className="text-xl sm:text-2xl text-secondary-600 mb-12 max-w-3xl mx-auto leading-relaxed animate-fade-in">
-              Take complete control of your healthcare journey with our intelligent platform. 
+              Take complete control of your health journey with our intelligent platform. 
               Track appointments, manage medications, and never miss a beat.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in">
@@ -142,7 +164,7 @@ const Landing = () => {
               Everything You Need
             </h2>
             <p className="text-xl text-secondary-600 max-w-2xl mx-auto">
-              Comprehensive tools designed to make healthcare management effortless and effective.
+              Comprehensive tools designed to make health management effortless and effective.
             </p>
           </div>
 
@@ -177,7 +199,7 @@ const Landing = () => {
             <div className="relative z-10">
               <FiClock className="h-16 w-16 text-white/90 mx-auto mb-6" />
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                Ready to Transform Your Healthcare?
+                Ready to Transform Your Health?
               </h2>
               <p className="text-xl text-primary-100 mb-10 max-w-2xl mx-auto">
                 Join thousands of users who have taken control of their health journey. 
@@ -201,12 +223,12 @@ const Landing = () => {
           <div className="text-center">
             <div className="flex items-center justify-center gap-2 mb-4">
               <div className="h-10 w-10 bg-primary-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">H</span>
+                <span className="text-white font-bold text-xl">T</span>
               </div>
-              <span className="text-2xl font-bold">HealthCare</span>
+              <span className="text-2xl font-bold">TemporaCare</span>
             </div>
             <p className="text-secondary-400 mb-4">
-              © 2026 HealthCare. All rights reserved.
+              © 2026 TemporaCare. All rights reserved.
             </p>
             <div className="flex items-center justify-center gap-6">
               <a href="#" className="text-secondary-400 hover:text-white transition-colors">
